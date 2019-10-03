@@ -70,6 +70,21 @@ void Plane::set_plane_entry_time(int t){
 	entry_time = t;
 }
 
+bool Plane::plane_in_environment(){
+
+	bool status = false;
+
+	if(x >= 0 && x <= 528000){
+		if(y >= 0 && y <= 528000){
+			if(z >= 15000 && z <= 25000){
+				status = true;
+			}
+		}
+	}
+
+	return status;
+}
+
 Plane::~Plane() {
 	// TODO Auto-generated destructor stub
 }
