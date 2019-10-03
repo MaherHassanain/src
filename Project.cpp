@@ -46,6 +46,8 @@ int main() {
 	cout <<"Plane1 ID is : "<< planeArray[0]->get_plane_id() <<endl;
 	cout << "Plane2 ID is : "<< planeArray[1]->get_plane_id() <<endl;
 	cout <<"Plane3 Entry Time is : "<< planeArray[2]->get_plane_entry_time() <<endl;
+	cout <<"Plane1 is in environment : "<< planeArray[0]->plane_in_environment() <<endl;
+	cout <<"Plane1 location : X : "<< planeArray[0]->get_plane_x() << "  Y : " << planeArray[0]->get_plane_y() << " Z : " << planeArray[0]->get_plane_z() <<endl;
 
 
 	return 0;
