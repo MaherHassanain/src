@@ -1,8 +1,10 @@
 #include <iostream>
 #include"Plane.h"
+#include"Radar.h"
 using namespace std;
 
 Plane* planeArray[20];
+Radar* planeRadar[20];
 
 int main() {
 
@@ -37,8 +39,12 @@ int main() {
 		planeArray[counter] = new Plane(airplane_schedule [i] , airplane_schedule [i+1], airplane_schedule [i+2], airplane_schedule [i+3], airplane_schedule [i+4],
 				airplane_schedule [i+5], airplane_schedule [i+6], airplane_schedule [i+7]);
 
+		planeRadar[counter] = new Radar(airplane_schedule[i],  airplane_schedule [i+4],
+				airplane_schedule [i+5], airplane_schedule [i+6]);
+
 		i = i + 7;
 //		cout << planeArray[counter]->get_plane_id() <<endl;
+//		cout << planeRadar[counter]->plane_in_environment(counter) <<endl;
 		counter++;
 
 	}
