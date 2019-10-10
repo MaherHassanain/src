@@ -19,7 +19,8 @@ class Radar {
 public:
 	Radar(int p_id, int x, int y, int z);
 	virtual ~Radar();
-	bool plane_in_environment(int p_id);
+	bool plane_in_environment();
+	void print_current_position();
 };
 
 #endif /* RADAR_H_ */

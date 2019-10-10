@@ -1,13 +1,15 @@
 #include <iostream>
+#include<vector>
 #include"Plane.h"
 #include"Radar.h"
 using namespace std;
 
 Plane* planeArray[20];
 Radar* planeRadar[20];
+vector<Plane> planeVector;
 
 int main() {
-
+	// id , spd x, spd y, spd z, pos x, pos y, pos z, entry time
 	int airplane_schedule[160] = {0, -641, 283, 500, 95000, 101589, 10000, 13,
 		1, -223, -630, -526, 71000, 100000, 13000, 16,
 		-1, -180, -446, -186, 41000, 100000, 6000, 31,
@@ -42,18 +44,27 @@ int main() {
 		planeRadar[counter] = new Radar(airplane_schedule[i],  airplane_schedule [i+4],
 				airplane_schedule [i+5], airplane_schedule [i+6]);
 
+		planeVector.push_back(Plane(airplane_schedule [i] , airplane_schedule [i+1], airplane_schedule [i+2], airplane_schedule [i+3], airplane_schedule [i+4],
+				airplane_schedule [i+5], airplane_schedule [i+6], airplane_schedule [i+7]));
+
 		i = i + 7;
 //		cout << planeArray[counter]->get_plane_id() <<endl;
-//		cout << planeRadar[counter]->plane_in_environment(counter) <<endl;
+//		cout << planeRadar[counter]->plane_in_environment() <<endl;
+		planeRadar[counter]->print_current_position();
 		counter++;
 
 	}
 
-	cout <<"Plane1 ID is : "<< planeArray[0]->get_plane_id() <<endl;
-	cout << "Plane2 ID is : "<< planeArray[1]->get_plane_id() <<endl;
-	cout <<"Plane3 Entry Time is : "<< planeArray[2]->get_plane_entry_time() <<endl;
-	cout <<"Plane1 is in environment : "<< planeArray[0]->plane_in_environment() <<endl;
-	cout <<"Plane1 location : X : "<< planeArray[0]->get_plane_x() << "  Y : " << planeArray[0]->get_plane_y() << " Z : " << planeArray[0]->get_plane_z() <<endl;
+//
+//	for (unsigned int j = 0; j < planeVector.size(); j++) {
+//	            cout << planeVector[j].get_plane_x() << endl;
+//	        }
+
+//	cout <<"Plane1 ID is : "<< planeArray[0]->get_plane_id() <<endl;
+//	cout << "Plane2 ID is : "<< planeArray[1]->get_plane_id() <<endl;
+//	cout <<"Plane3 Entry Time is : "<< planeArray[2]->get_plane_entry_time() <<endl;
+//	cout <<"Plane1 is in environment : "<< planeArray[0]->plane_in_environment() <<endl;
+//	cout <<"Plane1 location : X : "<< planeArray[0]->get_plane_x() << "  Y : " << planeArray[0]->get_plane_y() << " Z : " << planeArray[0]->get_plane_z() <<endl;
 
 
 	return 0;
