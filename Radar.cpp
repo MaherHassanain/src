@@ -16,6 +16,12 @@ Radar::Radar(int p_id, int x1, int y1, int z1) {
 	z = z1;
 }
 
+Radar::Radar(vector<Plane> p) {
+	// TODO Auto-generated constructor stub
+	vectorPlane = p;
+
+}
+
 Radar::~Radar() {
 	// TODO Auto-generated destructor stub
 }
