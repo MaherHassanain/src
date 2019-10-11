@@ -54,7 +54,6 @@ int main() {
 		counter++;
 
 	}
-
 //
 //	for (unsigned int j = 0; j < planeVector.size(); j++) {
 //	            cout << planeVector[j].get_plane_x() << endl;
