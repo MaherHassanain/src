@@ -2,11 +2,71 @@
 #include<vector>
 #include"Plane.h"
 #include"Radar.h"
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include<functional>
+#include<chrono>
 using namespace std;
 
 Plane* planeArray[20];
 Radar* planeRadar[20];
 vector<Plane> planeVector;
+
+mutex mtx; // to be used when we want to run more than a thread
+condition_variable cv; // used with mutex
+bool ready = false; // thread flag
+int current = 0; // current count
+
+class DisplayThread
+{
+public:
+    void operator()(Plane *p[])
+    {
+    	int counter = 0;
+    	int uCounter = 0; // for detecting -1 to set unique ID to them
+    	int secondCounter = 0; // for other unkown planes
+        for(int i = 0; i < 20; i++){
+         	if(p[i]->get_plane_id() == -1) {
+//         		cout << "Un-identified Plane" << endl;
+         		int temp;
+         		temp = p[i]->get_plane_id() - uCounter;
+         		p[i]->set_plane_id(temp);
+         		uCounter++;
+         	} else if(p[i]->get_plane_id() < -1) { // means the new found ID for unknown planes -2,-3, -4 etc
+         		secondCounter++; // count total unknown planes smaller ID than -1
+         	} else {
+         		// do nothing
+         		counter++;
+         	}
+
+         	cout << "Plane ID: " << p[i]->get_plane_id() << " X: " << p[i]->get_plane_x() << " Y: " << p[i]->get_plane_y() << " Z: " <<p[i]->get_plane_z() << endl;
+        }
+
+        int total = uCounter + secondCounter;
+
+        cout<< "Total  Un-idetntified planes: " << total << endl;
+        cout<< "Total  idetntified planes: " << counter << endl;
+
+        //Array to pass to ATC
+    }
+};
+
+void timer_start(std::function<void(void)> func, unsigned int interval)
+{
+    std::thread([func, interval]() {
+        while (true)
+        {
+            func();
+            std::this_thread::sleep_for(std::chrono::milliseconds(interval));
+        }
+    }).detach();
+}
+
+void radarScan() {
+	thread threadObj( (DisplayThread()), planeArray);
+	threadObj.join();
+}
 
 int main() {
 	// id , spd x, spd y, spd z, pos x, pos y, pos z, entry time
@@ -48,9 +108,10 @@ int main() {
 				airplane_schedule [i+5], airplane_schedule [i+6], airplane_schedule [i+7]));
 
 		i = i + 7;
-//		cout << planeArray[counter]->get_plane_id() <<endl;
+		cout << planeArray[counter]->get_plane_id() <<endl;
 //		cout << planeRadar[counter]->plane_in_environment() <<endl;
-		planeRadar[counter]->print_current_position();
+//		planeRadar[counter]->print_current_position();
+//		cout<< planeRadar[counter]->plane_is_identified() << endl;
 		counter++;
 
 	}
@@ -59,12 +120,9 @@ int main() {
 //	            cout << planeVector[j].get_plane_x() << endl;
 //	        }
 
-//	cout <<"Plane1 ID is : "<< planeArray[0]->get_plane_id() <<endl;
-//	cout << "Plane2 ID is : "<< planeArray[1]->get_plane_id() <<endl;
-//	cout <<"Plane3 Entry Time is : "<< planeArray[2]->get_plane_entry_time() <<endl;
-//	cout <<"Plane1 is in environment : "<< planeArray[0]->plane_in_environment() <<endl;
-//	cout <<"Plane1 location : X : "<< planeArray[0]->get_plane_x() << "  Y : " << planeArray[0]->get_plane_y() << " Z : " << planeArray[0]->get_plane_z() <<endl;
+	timer_start(radarScan, 15000);
 
+	while(true);
 
 	return 0;
 }
