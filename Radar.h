@@ -8,6 +8,7 @@
 #ifndef RADAR_H_
 #define RADAR_H_
 #include"Plane.h"
+#include<thread>
 #include<vector>
 using namespace std;
 
@@ -26,6 +27,8 @@ public:
 	virtual ~Radar();
 	bool plane_in_environment();
 	void print_current_position();
+	bool plane_is_identified();
+	void operator()(Plane *p[]);
 };
 
 #endif /* RADAR_H_ */
