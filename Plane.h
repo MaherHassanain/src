@@ -40,6 +40,7 @@ public:
 	void set_plane_y(int y1);
 	void set_plane_z(int z1);
 	void set_plane_entry_time(int t);
+	void position_update(int t);
 	bool plane_in_environment();
 };
 
