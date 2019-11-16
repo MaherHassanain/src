@@ -69,7 +69,12 @@ void Plane::set_plane_z(int z1){
 void Plane::set_plane_entry_time(int t){
 	entry_time = t;
 }
-
+void Plane::position_update(int t){
+//update the plane's position after t sec based on the current speed.
+    x=x+speed_x*t;
+    y=y+speed_x*t;
+    z=z+speed_x*t;
+  }
 bool Plane::plane_in_environment(){
 
 	bool status = false;
