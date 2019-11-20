@@ -44,7 +44,7 @@ bool Radar::plane_in_environment(){
 }
 
 void Radar::print_current_position(){
-	cout << "Plane ID: " << id << " - X position: " << x << " - Y position: " << y << " - Z position :" << z << endl;
+//	cout << "Plane ID: " << id << " - X position: " << x << " - Y position: " << y << " - Z position :" << z << endl;
 }
 
 bool Radar::plane_is_identified(){

@@ -14,10 +14,14 @@ private:
 	int x;
 	int y;
 	int z;
-	int size;
+	int xs;
+	int ys;
+	int zs;
+	int arrival_t;
+
 	bool hitStatus;
 public:
-	ATC();
+	ATC(int id, int xc, int yc, int zc, int xps, int yps, int zps, int t, bool hit);
 	virtual ~ATC();
 };
 

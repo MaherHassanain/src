@@ -2,31 +2,39 @@
 #include<vector>
 #include"Plane.h"
 #include"Radar.h"
+
 #include <thread>
 #include <mutex>
 #include <condition_variable>
 #include<functional>
 #include<chrono>
-using namespace std;
+#include"ATC.h"
+#include<queue>
+using namespace std::chrono;
 
 Plane* planeArray[20];
 Radar* planeRadar[20];
 vector<Plane> planeVector;
+queue <ATC> atc_computer_system_v;
 
+int secs = 0;
 mutex mtx; // to be used when we want to run more than a thread
 condition_variable cv; // used with mutex
 bool ready = false; // thread flag
 int current = 0; // current count
 
+
 class DisplayThread
 {
 public:
+
     void operator()(Plane *p[])
     {
     	int counter = 0;
     	int uCounter = 0; // for detecting -1 to set unique ID to them
     	int secondCounter = 0; // for other unkown planes
         for(int i = 0; i < 20; i++){
+        	if(p[i]->get_plane_entry_time() <= secs){
          	if(p[i]->get_plane_id() == -1) {
 //         		cout << "Un-identified Plane" << endl;
          		int temp;
@@ -40,17 +48,24 @@ public:
          		counter++;
          	}
 
+
          	cout << "Plane ID: " << p[i]->get_plane_id() << " X: " << p[i]->get_plane_x() << " Y: " << p[i]->get_plane_y() << " Z: " <<p[i]->get_plane_z() << endl;
+
+         	}
+
+
+
+
+
         }
-
-        int total = uCounter + secondCounter;
-
+   	 int total = uCounter + secondCounter;
         cout<< "Total  Un-idetntified planes: " << total << endl;
-        cout<< "Total  idetntified planes: " << counter << endl;
-
+                  cout<< "Total  idetntified planes: " << counter << endl;
         //Array to pass to ATC
     }
+
 };
+
 
 void timer_start(std::function<void(void)> func, unsigned int interval)
 {
@@ -62,11 +77,16 @@ void timer_start(std::function<void(void)> func, unsigned int interval)
         }
     }).detach();
 }
-
+void counting(){ // timer starts at t=1, cont. until end of program
+	secs = secs+1;
+  	cout << "time now: " << secs << endl;
+  }
 void radarScan() {
 	thread threadObj( (DisplayThread()), planeArray);
 	threadObj.join();
 }
+
+
 
 int main() {
 	// id , spd x, spd y, spd z, pos x, pos y, pos z, entry time
@@ -119,8 +139,9 @@ int main() {
 //	for (unsigned int j = 0; j < planeVector.size(); j++) {
 //	            cout << planeVector[j].get_plane_x() << endl;
 //	        }
-
+	timer_start(counting,1000);
 	timer_start(radarScan, 15000);
+
 
 	while(true);
 
