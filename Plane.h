@@ -22,6 +22,7 @@ private:
 
 
 public:
+
 	Plane(int id, int spx, int spy, int spz, int x1, int y1, int z1, int t);
 	virtual ~Plane();
 	int get_plane_id();

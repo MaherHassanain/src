@@ -6,7 +6,8 @@
  */
 
 #include "Plane.h"
-
+#include <chrono>
+using namespace std::chrono;
 Plane::Plane(int id, int spx, int spy, int spz, int x1, int y1, int z1, int t) {
 	// TODO Auto-generated constructor stub
 
@@ -18,6 +19,7 @@ Plane::Plane(int id, int spx, int spy, int spz, int x1, int y1, int z1, int t) {
 	y = y1;
 	z = z1;
 	entry_time = t;
+
 }
 
 int Plane::get_plane_id(){
@@ -61,10 +63,10 @@ void Plane::set_plane_x(int x1){
 	x = x1;
 }
 void Plane::set_plane_y(int y1){
-	y = y1;
+	y = y1 ;
 }
 void Plane::set_plane_z(int z1){
-	z = z1;
+	z = z1 ;
 }
 void Plane::set_plane_entry_time(int t){
 	entry_time = t;
