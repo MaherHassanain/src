@@ -28,7 +28,6 @@ public:
 	bool plane_in_environment();
 	void print_current_position();
 	bool plane_is_identified();
-	void Radar::checkCollision(vector<Plane> p);
 	void operator()(Plane *p[]);
 };
 
