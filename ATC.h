@@ -23,6 +23,7 @@ private:
 public:
 	ATC(int id, int xc, int yc, int zc, int xps, int yps, int zps, int t, bool hit);
 	virtual ~ATC();
+	void checkCollision(vector<Plane> p);
 };
 
 #endif /* ATC_H_ */
