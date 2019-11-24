@@ -52,7 +52,37 @@ public:
 
          	cout << "Plane ID: " << p[i]->get_plane_id() << " X: " << p[i]->get_plane_x() << " Y: " << p[i]->get_plane_y() << " Z: " <<p[i]->get_plane_z() << endl;
 
-         	ATCVector.push_back(Plane(p[i]->get_plane_id() , p[i]->get_plane_speed_x(), p[i]->get_plane_speed_y(), p[i]->get_plane_speed_z(), p[i]->get_plane_x(), p[i]->get_plane_y(), p[i]->get_plane_z(), p[i]->get_plane_entry_time()));
+
+         	if(ATCVector.size() == 0){
+
+             	ATCVector.push_back(Plane(p[i]->get_plane_id() , p[i]->get_plane_speed_x(), p[i]->get_plane_speed_y(), p[i]->get_plane_speed_z(), p[i]->get_plane_x(), p[i]->get_plane_y(), p[i]->get_plane_z(), p[i]->get_plane_entry_time()));
+
+         	} else {
+
+         		int tempID = p[i]->get_plane_id();
+         		bool duplicateFlag = false;
+
+         		for(int k = 0; k < ATCVector.size(); k++) {
+
+         			int compare = ATCVector[k].get_plane_id();
+
+         			if(tempID == compare) {
+
+         				cout << "Plane already exists, do nothing" << endl;
+         				duplicateFlag = true;
+
+         			}
+
+         		}
+
+         		if(duplicateFlag == false) {
+
+                 	ATCVector.push_back(Plane(p[i]->get_plane_id() , p[i]->get_plane_speed_x(), p[i]->get_plane_speed_y(), p[i]->get_plane_speed_z(), p[i]->get_plane_x(), p[i]->get_plane_y(), p[i]->get_plane_z(), p[i]->get_plane_entry_time()));
+
+         		}
+
+         	}
+
 
          	if(ATCVector.size() >= 2) {
          		ATC collisionCheck = ATC();
