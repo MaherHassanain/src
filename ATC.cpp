@@ -11,17 +11,17 @@
 #include <iostream>
 using namespace std;
 
-ATC::ATC(int id,int xc, int yc, int zc, int xps, int yps, int zps, int t, bool hit) {
+ATC::ATC() {
 	// TODO Auto-generated constructor stub
-	airCraftID = id;
-	 x = xc;
-	 y = yc;
-	 z = zc;
-	 xs = xps;
-	 ys = yps;
-	 zs = zps;
-	 arrival_t = t;
-	 hitStatus = hit;
+//	airCraftID = id;
+//	 x = xc;
+//	 y = yc;
+//	 z = zc;
+//	 xs = xps;
+//	 ys = yps;
+//	 zs = zps;
+//	 arrival_t = t;
+//	 hitStatus = hit;
 }
 
 ATC::~ATC() {

@@ -15,6 +15,7 @@ using namespace std::chrono;
 Plane* planeArray[20];
 Radar* planeRadar[20];
 vector<Plane> planeVector;
+vector<Plane> ATCVector;
 queue <ATC> atc_computer_system_v;
 
 int secs = 0;
@@ -22,6 +23,7 @@ mutex mtx; // to be used when we want to run more than a thread
 condition_variable cv; // used with mutex
 bool ready = false; // thread flag
 int current = 0; // current count
+
 
 
 class DisplayThread
@@ -48,16 +50,19 @@ public:
          		counter++;
          	}
 
-
          	cout << "Plane ID: " << p[i]->get_plane_id() << " X: " << p[i]->get_plane_x() << " Y: " << p[i]->get_plane_y() << " Z: " <<p[i]->get_plane_z() << endl;
+
+         	ATCVector.push_back(Plane(p[i]->get_plane_id() , p[i]->get_plane_speed_x(), p[i]->get_plane_speed_y(), p[i]->get_plane_speed_z(), p[i]->get_plane_x(), p[i]->get_plane_y(), p[i]->get_plane_z(), p[i]->get_plane_entry_time()));
+
+         	if(ATCVector.size() >= 2) {
+         		ATC collisionCheck = ATC();
+         		collisionCheck.checkCollision(ATCVector);
+         	}
 
          	}
 
-
-
-
-
         }
+
    	 int total = uCounter + secondCounter;
         cout<< "Total  Un-idetntified planes: " << total << endl;
                   cout<< "Total  idetntified planes: " << counter << endl;
