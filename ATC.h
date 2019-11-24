@@ -7,6 +7,9 @@
 
 #ifndef ATC_H_
 #define ATC_H_
+#include"Plane.h"
+#include<thread>
+#include<vector>
 
 class ATC {
 private:
@@ -18,7 +21,7 @@ private:
 	int ys;
 	int zs;
 	int arrival_t;
-
+	vector<Plane> vectorPlane;
 	bool hitStatus;
 public:
 	ATC(int id, int xc, int yc, int zc, int xps, int yps, int zps, int t, bool hit);
