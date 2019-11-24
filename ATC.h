@@ -10,6 +10,7 @@
 #include"Plane.h"
 #include<thread>
 #include<vector>
+using namespace std;
 
 class ATC {
 private:
