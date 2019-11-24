@@ -6,9 +6,10 @@
  */
 
 #include "ATC.h"
-#include "Math.h"
 #include<cmath>
 #include <iostream>
+#include "math.h"
+
 using namespace std;
 
 ATC::ATC(int id,int xc, int yc, int zc, int xps, int yps, int zps, int t, bool hit) {
