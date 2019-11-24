@@ -84,10 +84,10 @@ public:
          	}
 
 
-         	if(ATCVector.size() >= 2) {
-         		ATC collisionCheck = ATC();
-         		collisionCheck.checkCollision(ATCVector);
-         	}
+//         	if(ATCVector.size() >= 2) {
+//         		ATC collisionCheck = ATC();
+//         		collisionCheck.checkCollision(ATCVector);
+//         	}
 
          	}
 
@@ -112,10 +112,20 @@ void timer_start(std::function<void(void)> func, unsigned int interval)
         }
     }).detach();
 }
+
 void counting(){ // timer starts at t=1, cont. until end of program
 	secs = secs+1;
   	cout << "time now: " << secs << endl;
   }
+
+void checkForCollision() {
+
+   	if(ATCVector.size() >= 2) {
+   		ATC collisionCheck = ATC();
+   		collisionCheck.checkCollision(ATCVector);
+   	}
+}
+
 void radarScan() {
 	thread threadObj( (DisplayThread()), planeArray);
 	threadObj.join();
@@ -174,8 +184,11 @@ int main() {
 //	for (unsigned int j = 0; j < planeVector.size(); j++) {
 //	            cout << planeVector[j].get_plane_x() << endl;
 //	        }
+
 	timer_start(counting,1000);
 	timer_start(radarScan, 15000);
+	timer_start(checkForCollision,1000);
+
 
 
 	while(true);
