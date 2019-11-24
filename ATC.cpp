@@ -6,6 +6,10 @@
  */
 
 #include "ATC.h"
+#include "Math.h"
+#include<cmath>
+#include <iostream>
+using namespace std;
 
 ATC::ATC(int id,int xc, int yc, int zc, int xps, int yps, int zps, int t, bool hit) {
 	// TODO Auto-generated constructor stub
@@ -51,14 +55,14 @@ void ATC::checkCollision(vector<Plane> p){
     			dx = pow(dx, 2);
 
     			int dy = abs(y2 - y1)/5280;
-    			dy= pow(y3, 2);
+    			dy= pow(y2, 2);
 
     			int dz = abs(z2 - z1);
 
     			// calculate distance
     			int dist = sqrt(dx + dy);
     			if(dist <= 3 && dy <= 1000) {
-    				cout << "Collision alert for aircraft ID: " << vectorPlane[i].get_plane_id() << " and aircraft ID: " << vectorPlane[j].get_plane_id << endl;
+    				cout << "Collision alert for aircraft ID: " << vectorPlane[i].get_plane_id() << " and aircraft ID: " << vectorPlane[j].get_plane_id() << endl;
     			}
     		}
     	}
