@@ -28,6 +28,7 @@ public:
 	ATC();
 	virtual ~ATC();
 	void checkCollision(vector<Plane> p);
+	void commandInput(Message m);
 };
 
 #endif /* ATC_H_ */

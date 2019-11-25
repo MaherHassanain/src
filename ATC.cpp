@@ -69,3 +69,49 @@ void ATC::checkCollision(vector<Plane> p){
     	}
     }
 
+void ATC::commandInput(Message m){
+
+    vector<string> command = m.getMsg();
+    int planeID = stoi(command[1]);
+    if(command[0] == "chgalt"){
+        int altitude = stoi(command[2]);
+        vectorPlane[planeID].set_plane_z(altitude);
+    }
+    else if(command[0] == "setspd"){
+        int speedx= stoi(command[2]);
+        int speedy= stoi(command[3]);
+        int speedz= stoi(command[4]);
+
+        vectorPlane[planeID].set_plane_speed_x(speedx);
+        vectorPlane[planeID].set_plane_speed_y(speedy);
+        vectorPlane[planeID].set_plane_speed_z(speedz);
+
+    }
+    else if(command[0] == "hold"){
+        //do something???
+    }
+    else if(command[0] == "leave"){
+        //do something???
+    }
+    else if(command[0] == "rpt"){
+        if( stoi(command[1]) == -1){
+            //if "all"
+        }
+        else{
+            //specific planeID
+
+            //to do: make a nicer output format..
+            cout << "REPORTING PLANE ID: " + planeID  << endl;
+            cout << "Speed X: " + vectorPlane[planeID].get_plane_speed_x() << endl;
+            cout << "Speed Y: " + vectorPlane[planeID].get_plane_speed_y() << endl;
+            cout << "Speed Z: " + vectorPlane[planeID].get_plane_speed_z() << endl;
+
+            cout << "Speed X: " + vectorPlane[planeID].get_plane_x() << endl;
+            cout << "Speed Y: " + vectorPlane[planeID].get_plane_y() << endl;
+            cout << "Speed Z: " + vectorPlane[planeID].get_plane_z() << endl;
+
+            cout << "Entry Time: "+vectorPlane[planeID].get_plane_entry_time() << endl;
+        }
+
+    }
+}
