@@ -67,7 +67,7 @@ public:
 
          			if(tempID == compare) {
 
-         				cout << "Plane already exists, do nothing" << endl;
+//         				cout << "Plane already exists, do nothing" << endl;
          				duplicateFlag = true;
 
          			}

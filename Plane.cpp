@@ -123,7 +123,7 @@ void Plane::starthold(){
 	saved_speed_x=speed_x;
 	saved_speed_y=speed_y;
 	saved_speed_z=speed_z;
-	magnitude=sqrt(pow(speed_x,2)+pow(speed_y,2))
+	magnitude=sqrt(pow(speed_x,2)+pow(speed_y,2));
 	bool holding=true;
 	theta=0;
 	speed_x=(double)magnitude*(double)sin(theta);

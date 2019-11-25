@@ -8,6 +8,7 @@
 #ifndef ATC_H_
 #define ATC_H_
 #include"Plane.h"
+#include"Message.h"
 #include<thread>
 #include<vector>
 using namespace std;
