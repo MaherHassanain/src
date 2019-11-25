@@ -10,13 +10,15 @@
 #include<chrono>
 #include"ATC.h"
 #include<queue>
+#include <Logger.h>
+
 using namespace std::chrono;
 
 Plane* planeArray[20];
 Radar* planeRadar[20];
 vector<Plane> planeVector;
 vector<Plane> ATCVector;
-
+Logger logger;
 
 int secs = 0;
 mutex mtx; // to be used when we want to run more than a thread
