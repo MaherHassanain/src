@@ -51,10 +51,7 @@ public:
          	}
 
          	//cout << "Plane ID: " << p[i]->get_plane_id() << " X: " << p[i]->get_plane_x() << " Y: " << p[i]->get_plane_y() << " Z: " <<p[i]->get_plane_z() << endl;
-         	for(int i=0; i< ATCVector.size(); i++){
 
-         	cout << "Inside ATC Plane ID: " << ATCVector[i].get_plane_id() << " X: " <<ATCVector[i].get_plane_x() << " Y: " << ATCVector[i].get_plane_y() << " Z: " <<ATCVector[i].get_plane_z() << endl;
-         	}
          	if(ATCVector.size() == 0){
 
              	ATCVector.push_back(Plane(p[i]->get_plane_id() , p[i]->get_plane_speed_x(), p[i]->get_plane_speed_y(), p[i]->get_plane_speed_z(), p[i]->get_plane_x(), p[i]->get_plane_y(), p[i]->get_plane_z(), p[i]->get_plane_entry_time()));
@@ -94,7 +91,10 @@ public:
          	}
 
         }
+    	for(int i=0; i< ATCVector.size(); i++){
 
+             	cout << "Inside ATC Plane ID: " << ATCVector[i].get_plane_id() << " X: " <<ATCVector[i].get_plane_x() << " Y: " << ATCVector[i].get_plane_y() << " Z: " <<ATCVector[i].get_plane_z() << endl;
+             	}
    	 int total = uCounter + secondCounter;
         cout<< "Total  Un-idetntified planes: " << total << endl;
                   cout<< "Total  idetntified planes: " << counter << endl;
