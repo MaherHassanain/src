@@ -19,6 +19,7 @@ private:
 
 public:
     Logger();
+    Logger(string s);
     void addEvent(string e);
     void closeFile();
 };
