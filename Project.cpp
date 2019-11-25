@@ -18,7 +18,7 @@ Plane* planeArray[20];
 Radar* planeRadar[20];
 vector<Plane> planeVector;
 vector<Plane> ATCVector;
-Logger logger;
+Logger logger("Airspace_Log.txt");
 
 int secs = 0;
 mutex mtx; // to be used when we want to run more than a thread
