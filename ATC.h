@@ -28,7 +28,7 @@ private:
 public:
 	ATC();
 	virtual ~ATC();
-	void checkCollision(vector<Plane> p);
+	string checkCollision(vector<Plane> p);
 	void commandInput(Message m);
 };
 
