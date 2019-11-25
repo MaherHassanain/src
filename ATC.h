@@ -29,7 +29,7 @@ public:
 	ATC();
 	virtual ~ATC();
 	string checkCollision(vector<Plane> p);
-	void commandInput(Message m);
+	void commandInput(Message m,vector<Plane> &p);
 };
 
 #endif /* ATC_H_ */
