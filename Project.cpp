@@ -18,7 +18,10 @@ Plane* planeArray[20];
 Radar* planeRadar[20];
 vector<Plane> planeVector;
 vector<Plane> ATCVector;
-Logger logger("Airspace_Log.txt");
+ATC centralATC = ATC();
+Logger Airspacefile("Airspace_Log.txt");
+Logger Trackerfile("Track_File.txt");
+Logger Collisiontracker("Collision_File.txt");
 
 int secs = 0;
 mutex mtx; // to be used when we want to run more than a thread
@@ -52,8 +55,19 @@ public:
          		counter++;
          	}
 
-         	//cout << "Plane ID: " << p[i]->get_plane_id() << " X: " << p[i]->get_plane_x() << " Y: " << p[i]->get_plane_y() << " Z: " <<p[i]->get_plane_z() << endl;
+  		string trackLine = "Plane ID: " ;
+         	trackLine.append(to_string(p[i]->get_plane_id()));
 
+         	trackLine.append(" X: ");
+         	trackLine.append(to_string(p[i]->get_plane_x()));
+
+         	trackLine.append(" Y: ");
+          	trackLine.append(to_string(p[i]->get_plane_y()));
+
+            	trackLine.append(" Z: ");
+            	trackLine.append(to_string(p[i]->get_plane_z()));
+
+            	Trackerfile.addEvent(trackLine);
          	if(ATCVector.size() == 0){
 
              	ATCVector.push_back(Plane(p[i]->get_plane_id() , p[i]->get_plane_speed_x(), p[i]->get_plane_speed_y(), p[i]->get_plane_speed_z(), p[i]->get_plane_x(), p[i]->get_plane_y(), p[i]->get_plane_z(), p[i]->get_plane_entry_time()));
@@ -133,8 +147,7 @@ void counting(){ // timer starts at t=1, cont. until end of program
 void checkForCollision() {
 
    	if(ATCVector.size() >= 2) {
-   		ATC collisionCheck = ATC();
-   		collisionCheck.checkCollision(ATCVector);
+   		Collisiontracker.addEvent(centralATC.checkCollision(ATCVector));
    	}
 }
 
