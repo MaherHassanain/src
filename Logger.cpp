@@ -6,7 +6,12 @@
 
 Logger::Logger() {
     fout.open("log.txt");
-    fout << "LOG FILE" << endl;
+    fout << "DEFAULT LOG FILE" << endl;
+}
+
+Logger::Logger(string s) {
+    fout.open(s);
+    fout << s << endl;
 }
 
 void Logger::addEvent(string e){
