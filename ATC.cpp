@@ -28,7 +28,7 @@ ATC::ATC() {
 ATC::~ATC() {
 	// TODO Auto-generated destructor stub
 }
-void ATC::checkCollision(vector<Plane> p){
+string ATC::checkCollision(vector<Plane> p){
     	vectorPlane = p;
 	for (int i = 0; i < vectorPlane.size() - 1; i++){
     		// get plane1 coordinates xyz
@@ -63,10 +63,15 @@ void ATC::checkCollision(vector<Plane> p){
     			// calculate distance
     			int dist = sqrt(dx + dy);
     			if(dist <= 3 && dy <= 1000) {
-    				cout << "Collision alert for aircraft ID: " << vectorPlane[i].get_plane_id() << " and aircraft ID: " << vectorPlane[j].get_plane_id() << endl;
-    			}
+			    string res = "Collision alert for aircraft ID: ";
+    			    res.append(to_string(vectorPlane[i].get_plane_id()));
+    			    res.append(" and aircraft ID: ");
+    			    res.append(to_string(vectorPlane[j].get_plane_id()));
+    			    return res;    			
+			}
     		}
     	}
+	return "";
     }
 
 void ATC::commandInput(Message m){
