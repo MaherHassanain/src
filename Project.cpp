@@ -16,7 +16,7 @@ Plane* planeArray[20];
 Radar* planeRadar[20];
 vector<Plane> planeVector;
 vector<Plane> ATCVector;
-queue <ATC> atc_computer_system_v;
+
 
 int secs = 0;
 mutex mtx; // to be used when we want to run more than a thread
@@ -50,9 +50,11 @@ public:
          		counter++;
          	}
 
-         	cout << "Plane ID: " << p[i]->get_plane_id() << " X: " << p[i]->get_plane_x() << " Y: " << p[i]->get_plane_y() << " Z: " <<p[i]->get_plane_z() << endl;
+         	//cout << "Plane ID: " << p[i]->get_plane_id() << " X: " << p[i]->get_plane_x() << " Y: " << p[i]->get_plane_y() << " Z: " <<p[i]->get_plane_z() << endl;
+         	for(int i=0; i< ATCVector.size(); i++){
 
-
+         	cout << "Inside ATC Plane ID: " << ATCVector[i].get_plane_id() << " X: " <<ATCVector[i].get_plane_x() << " Y: " << ATCVector[i].get_plane_y() << " Z: " <<ATCVector[i].get_plane_z() << endl;
+         	}
          	if(ATCVector.size() == 0){
 
              	ATCVector.push_back(Plane(p[i]->get_plane_id() , p[i]->get_plane_speed_x(), p[i]->get_plane_speed_y(), p[i]->get_plane_speed_z(), p[i]->get_plane_x(), p[i]->get_plane_y(), p[i]->get_plane_z(), p[i]->get_plane_entry_time()));
@@ -115,7 +117,15 @@ void timer_start(std::function<void(void)> func, unsigned int interval)
 
 void counting(){ // timer starts at t=1, cont. until end of program
 	secs = secs+1;
+
   	cout << "time now: " << secs << endl;
+  	for(int i =0; i < ATCVector.size(); i++){
+  	ATCVector[i].set_plane_x((ATCVector[i].get_plane_speed_x()+ATCVector[i].get_plane_x()));
+  	ATCVector[i].set_plane_y((ATCVector[i].get_plane_speed_y()+ATCVector[i].get_plane_y()));
+  	ATCVector[i].set_plane_z((ATCVector[i].get_plane_speed_z()+ATCVector[i].get_plane_z()));
+  	//cout << ATCVector[i].get_plane_x << "  new positions ";
+
+  	}
   }
 
 void checkForCollision() {
