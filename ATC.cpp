@@ -74,48 +74,69 @@ string ATC::checkCollision(vector<Plane> p){
 	return "";
     }
 
-void ATC::commandInput(Message m){
+void ATC::commandInput(Message m,vector<Plane> &p){
 
-    vector<string> command = m.getMsg();
+
+	//cout << p[0].get_plane_speed_z()<<endl;
+    vector<string> command = m.getMsg(); //chgalt,0,1000
     int planeID = stoi(command[1]);
     if(command[0] == "chgalt"){
         int altitude = stoi(command[2]);
-        vectorPlane[planeID].set_plane_z(altitude);
-    }
-    else if(command[0] == "setspd"){
-        int speedx= stoi(command[2]);
-        int speedy= stoi(command[3]);
-        int speedz= stoi(command[4]);
-
-        vectorPlane[planeID].set_plane_speed_x(speedx);
-        vectorPlane[planeID].set_plane_speed_y(speedy);
-        vectorPlane[planeID].set_plane_speed_z(speedz);
+        for(int i=0; i < p.size(); i++){
+        	if(p[i].get_plane_id() == planeID){
+        	//	cout << "speed z" << altitude<<endl;
+        		p[i].set_plane_speed_z(altitude);
+        	}
+        }
 
     }
-    else if(command[0] == "hold"){
-        vectorPlane[planeID].starthold();
+    else if(command[0] == "setspd"){ //setspd,id,x,y,z
+    	int speedx= stoi(command[2]);
+    	int speedy= stoi(command[3]);
+    	int speedz= stoi(command[4]);
+
+    	 for(int i=0; i < vectorPlane.size(); i++){
+    	  if(vectorPlane[i].get_plane_id() == planeID){
+    	     vectorPlane[i].set_plane_speed_x(speedx);
+    	     vectorPlane[i].set_plane_speed_y(speedy);
+    	     vectorPlane[i].set_plane_speed_z(speedz);
+    	        	}
+    	        }
+
+    }
+    else if(command[0] == "hold"){ // hold,id
+    	 for(int i=0; i < vectorPlane.size(); i++){
+    	  if(vectorPlane[i].get_plane_id() == planeID){
+    	    	    vectorPlane[i].starthold();
+    	  	  }
+    	 }
+
     }
     else if(command[0] == "leave"){
-        vectorPlane[planeID].endhold();
+    	 for(int i=0; i < vectorPlane.size(); i++){
+    	    	  if(vectorPlane[i].get_plane_id() == planeID){
+    	    		  vectorPlane[i].endhold();
+    	    	   }
+    	 }
     }
-    else if(command[0] == "rpt"){
-        if( stoi(command[1]) == -1){
+    else if(command[0] == "rpt"){ // rpt,all
+        if( command[1] == "all"){
             //if "all"
+        	for(int i=0; i < vectorPlane.size(); i++){
+
+        		cout << "Plane ID: " << vectorPlane[i].get_plane_id() << " X: " <<vectorPlane[i].get_plane_x() << " Y: " << vectorPlane[i].get_plane_y() << " Z: " <<vectorPlane[i].get_plane_z() << " x_speed: " << vectorPlane[i].get_plane_speed_x()<< " y_speed : " << vectorPlane[i].get_plane_speed_y() << "z_speed : "<< vectorPlane[i].get_plane_speed_z() << "Arrival Time : "<< vectorPlane[i].get_plane_entry_time()<< endl;
+        	    	 }
+        	// unknown aircraft
         }
-        else{
+        else{ // rpt, id
             //specific planeID
 
-            //to do: make a nicer output format..
-            cout << "REPORTING PLANE ID: " + planeID  << endl;
-            cout << "Speed X: " + vectorPlane[planeID].get_plane_speed_x() << endl;
-            cout << "Speed Y: " + vectorPlane[planeID].get_plane_speed_y() << endl;
-            cout << "Speed Z: " + vectorPlane[planeID].get_plane_speed_z() << endl;
+        	 for(int i=0; i < vectorPlane.size(); i++){
+        	    if(vectorPlane[i].get_plane_id() == planeID){
+        	     cout << "Plane ID: " << vectorPlane[i].get_plane_id() << " X: " <<vectorPlane[i].get_plane_x() << " Y: " << vectorPlane[i].get_plane_y() << " Z: " <<vectorPlane[i].get_plane_z() << " x_speed: " << vectorPlane[i].get_plane_speed_x()<< " y_speed : " << vectorPlane[i].get_plane_speed_y() << "z_speed : "<< vectorPlane[i].get_plane_speed_z() << "Arrival Time : "<< vectorPlane[i].get_plane_entry_time()<< endl;
 
-            cout << "Speed X: " + vectorPlane[planeID].get_plane_x() << endl;
-            cout << "Speed Y: " + vectorPlane[planeID].get_plane_y() << endl;
-            cout << "Speed Z: " + vectorPlane[planeID].get_plane_z() << endl;
-
-            cout << "Entry Time: "+vectorPlane[planeID].get_plane_entry_time() << endl;
+        	    	  	  }
+        	    	 }
         }
 
     }

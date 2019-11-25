@@ -2,7 +2,7 @@
 #include<vector>
 #include"Plane.h"
 #include"Radar.h"
-
+#include "Message.h"
 #include <thread>
 #include <mutex>
 #include <condition_variable>
@@ -10,7 +10,7 @@
 #include<chrono>
 #include"ATC.h"
 #include<queue>
-#include <Logger.h>
+#include "Logger.h"
 
 using namespace std::chrono;
 
@@ -109,7 +109,7 @@ public:
         }
     	for(int i=0; i< ATCVector.size(); i++){
 
-             	cout << "Inside ATC Plane ID: " << ATCVector[i].get_plane_id() << " X: " <<ATCVector[i].get_plane_x() << " Y: " << ATCVector[i].get_plane_y() << " Z: " <<ATCVector[i].get_plane_z() << endl;
+             	cout << "Inside ATC Plane ID: " << ATCVector[i].get_plane_id() << " X: " <<ATCVector[i].get_plane_x() << " Y: " << ATCVector[i].get_plane_y() << " Z: " <<ATCVector[i].get_plane_z() << " x_speed: " << ATCVector[i].get_plane_speed_x()<< " y_speed : " << ATCVector[i].get_plane_speed_y() << " z_speed : "<< ATCVector[i].get_plane_speed_z() << " Arrival Time : "<< ATCVector[i].get_plane_entry_time()<< endl;
              	}
    	 int total = uCounter + secondCounter;
         cout<< "Total  Un-idetntified planes: " << total << endl;
@@ -131,10 +131,18 @@ void timer_start(std::function<void(void)> func, unsigned int interval)
     }).detach();
 }
 
+void startInput() {
+
+	string operate;
+		Message msg = Message();
+		cin >> operate;
+		msg.setMsg(operate);
+	centralATC.commandInput(msg,ATCVector);
+}
 void counting(){ // timer starts at t=1, cont. until end of program
 	secs = secs+1;
 
-  	cout << "time now: " << secs << endl;
+  //	cout << "time now: " << secs << endl;
   	for(int i =0; i < ATCVector.size(); i++){
   	ATCVector[i].set_plane_x((ATCVector[i].get_plane_speed_x()+ATCVector[i].get_plane_x()));
   	ATCVector[i].set_plane_y((ATCVector[i].get_plane_speed_y()+ATCVector[i].get_plane_y()));
@@ -210,9 +218,20 @@ int main() {
 //	            cout << planeVector[j].get_plane_x() << endl;
 //	        }
 
+
+
+//	while(operate != "stop"){
+//		while(cin>>operate){
+//			cout << "enter instructions,chgalt,setspd"<<endl;
+//			//centralATC.commandInput();
+//		}
+//	}
 	timer_start(counting,1000);
 	timer_start(radarScan, 15000);
 	timer_start(checkForCollision,1000);
+
+	timer_start(startInput,1000);
+
 
 
 

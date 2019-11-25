@@ -4,6 +4,7 @@
 
 #include "Message.h"
 
+Message::Message(){}
 void Message::setMsg(string s){
     string delimiter = ",";
     size_t pos_start = 0, pos_end, delim_len = delimiter.length();
