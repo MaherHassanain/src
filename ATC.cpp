@@ -88,10 +88,10 @@ void ATC::commandInput(Message m){
 
     }
     else if(command[0] == "hold"){
-        //do something???
+        vectorPlane[planeID].starthold();
     }
     else if(command[0] == "leave"){
-        //do something???
+        vectorPlane[planeID].endhold();
     }
     else if(command[0] == "rpt"){
         if( stoi(command[1]) == -1){
