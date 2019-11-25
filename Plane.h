@@ -14,6 +14,12 @@ private:
 	int speed_x;
 	int speed_y;
 	int speed_z;
+	int saved_speed_x;	//used for saving initial speed when entering holding pattern
+	int saved_speed_y;
+	int saved_speed_z;
+	int theta;
+	double magnitude;
+	bool holding;		//flag for holding check.
 	int x;
 	int y;
 	int z;
@@ -43,6 +49,8 @@ public:
 	void set_plane_entry_time(int t);
 	void position_update(int t);
 	bool plane_in_environment();
+	void starthold();
+	void endhold();
 };
 
 #endif /* PLANE_H_ */
