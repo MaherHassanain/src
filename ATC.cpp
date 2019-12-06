@@ -78,10 +78,11 @@ void ATC::commandInput(Message m,vector<Plane> &p){
 
 
 	//cout << p[0].get_plane_speed_z()<<endl;
-    vector<string> command = m.getMsg(); //chgalt,0,1000
+    vector<string> command = m.getMsg(); //chgalt,0,1
     int planeID = stoi(command[1]);
     if(command[0] == "chgalt"){
         int altitude = stoi(command[2]);
+	altitude = altitude*1000;
         for(int i=0; i < p.size(); i++){
         	if(p[i].get_plane_id() == planeID){
         	//	cout << "speed z" << altitude<<endl;
